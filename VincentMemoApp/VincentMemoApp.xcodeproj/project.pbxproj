@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		20E4912F246AC2F900B08EF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4912E246AC2F900B08EF9 /* AppDelegate.swift */; };
 		20E49131246AC2F900B08EF9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E49130246AC2F900B08EF9 /* SceneDelegate.swift */; };
-		20E49133246AC2F900B08EF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E49132246AC2F900B08EF9 /* ViewController.swift */; };
 		20E49136246AC2F900B08EF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20E49134246AC2F900B08EF9 /* Main.storyboard */; };
 		20E49139246AC2F900B08EF9 /* VincentMemoApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20E49137246AC2F900B08EF9 /* VincentMemoApp.xcdatamodeld */; };
 		20E4913B246AC2FA00B08EF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20E4913A246AC2FA00B08EF9 /* Assets.xcassets */; };
@@ -20,7 +19,6 @@
 		20E4912B246AC2F900B08EF9 /* VincentMemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VincentMemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20E4912E246AC2F900B08EF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20E49130246AC2F900B08EF9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		20E49132246AC2F900B08EF9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		20E49135246AC2F900B08EF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		20E49138246AC2F900B08EF9 /* VincentMemoApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VincentMemoApp.xcdatamodel; sourceTree = "<group>"; };
 		20E4913A246AC2FA00B08EF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +58,6 @@
 			children = (
 				20E4912E246AC2F900B08EF9 /* AppDelegate.swift */,
 				20E49130246AC2F900B08EF9 /* SceneDelegate.swift */,
-				20E49132246AC2F900B08EF9 /* ViewController.swift */,
 				20E49134246AC2F900B08EF9 /* Main.storyboard */,
 				20E4913A246AC2FA00B08EF9 /* Assets.xcassets */,
 				20E4913C246AC2FA00B08EF9 /* LaunchScreen.storyboard */,
@@ -141,7 +138,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20E49133246AC2F900B08EF9 /* ViewController.swift in Sources */,
 				20E49139246AC2F900B08EF9 /* VincentMemoApp.xcdatamodeld in Sources */,
 				20E4912F246AC2F900B08EF9 /* AppDelegate.swift in Sources */,
 				20E49131246AC2F900B08EF9 /* SceneDelegate.swift in Sources */,
