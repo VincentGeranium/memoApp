@@ -38,6 +38,24 @@ class MemoListTableViewController: UITableViewController {
             NotificationCenter.default.removeObserver(token)
         }
     }
+    
+    /// 이 메소드는 세그웨이가 연결된 화면을 생성하고 화면을 전환하기 직전에 호출된다.
+    /// main storybord 에서 현재 VC와 연결된 테이블 뷰의 Cell이 sender가 된다 그래서 이 메소드의 두 번째 파라미터인 sender로 전달된다.
+    /// sender 파라미터를 이용하여 몇 번째 Cell을 선택했는지 계산.
+    /// sender 파라미터의 타입이 Any 옵셔널 타입이므로 UITableViewCell 타입으로 바꾸고 Cell을 TableView로 전달하여 몇 번째 위치에 있는 Cell인지 확인.
+    /// segue 파라미터는 현재 실행중인 세그웨이가 전달되어 들어온다.
+    /// segue 를 이용해 목록화면과 보기회면을 접근 할 수 있다.
+    /// 세그웨이를 실행하는 화면을 source라고 한다 그리고 새롭게 생성되는 화면을 destination 이라고 한다.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        /// indexPath 상수를 통해 몇 번째 Cell인지 확인 할 수 있다.
+        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+            /// 메모(데이터)를 전달하기 위해서는 destination을 실제 타입으로 타입캐스팅 해야 한다.
+            if let vc = segue.destination as? DetailViewController {
+                /// 배열에서 선택한 데이터를 가져와서 memo 속성에 저장한다.
+                vc.memo = Memo.dummyMemoList[indexPath.row]
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
