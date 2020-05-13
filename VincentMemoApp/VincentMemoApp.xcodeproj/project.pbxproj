@@ -11,6 +11,7 @@
 		20832866246AF33600E39828 /* MemoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20832865246AF33600E39828 /* MemoListTableViewController.swift */; };
 		208DE676246AD75C00CB72A9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208DE675246AD75C00CB72A9 /* Model.swift */; };
 		20BA9714246BF47300EFC685 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BA9713246BF47300EFC685 /* ComposeViewController.swift */; };
+		20CB8CBC246C335600AE2873 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CB8CBB246C335600AE2873 /* DetailViewController.swift */; };
 		20E4912F246AC2F900B08EF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4912E246AC2F900B08EF9 /* AppDelegate.swift */; };
 		20E49131246AC2F900B08EF9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E49130246AC2F900B08EF9 /* SceneDelegate.swift */; };
 		20E49136246AC2F900B08EF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20E49134246AC2F900B08EF9 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		20832865246AF33600E39828 /* MemoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListTableViewController.swift; sourceTree = "<group>"; };
 		208DE675246AD75C00CB72A9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		20BA9713246BF47300EFC685 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
+		20CB8CBB246C335600AE2873 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		20E4912B246AC2F900B08EF9 /* VincentMemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VincentMemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20E4912E246AC2F900B08EF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20E49130246AC2F900B08EF9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				20832865246AF33600E39828 /* MemoListTableViewController.swift */,
 				20BA9713246BF47300EFC685 /* ComposeViewController.swift */,
 				20163340246C0805005E2AA2 /* UIViewcontroller+Alert.swift */,
+				20CB8CBB246C335600AE2873 /* DetailViewController.swift */,
 			);
 			path = VincentMemoApp;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				20BA9714246BF47300EFC685 /* ComposeViewController.swift in Sources */,
 				20E49131246AC2F900B08EF9 /* SceneDelegate.swift in Sources */,
 				208DE676246AD75C00CB72A9 /* Model.swift in Sources */,
+				20CB8CBC246C335600AE2873 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
