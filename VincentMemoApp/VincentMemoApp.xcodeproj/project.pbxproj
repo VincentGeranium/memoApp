@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20163341246C0805005E2AA2 /* UIViewcontroller+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20163340246C0805005E2AA2 /* UIViewcontroller+Alert.swift */; };
 		20832866246AF33600E39828 /* MemoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20832865246AF33600E39828 /* MemoListTableViewController.swift */; };
 		208DE676246AD75C00CB72A9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208DE675246AD75C00CB72A9 /* Model.swift */; };
 		20BA9714246BF47300EFC685 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BA9713246BF47300EFC685 /* ComposeViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20163340246C0805005E2AA2 /* UIViewcontroller+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewcontroller+Alert.swift"; sourceTree = "<group>"; };
 		20832865246AF33600E39828 /* MemoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListTableViewController.swift; sourceTree = "<group>"; };
 		208DE675246AD75C00CB72A9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		20BA9713246BF47300EFC685 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				20E49137246AC2F900B08EF9 /* VincentMemoApp.xcdatamodeld */,
 				20832865246AF33600E39828 /* MemoListTableViewController.swift */,
 				20BA9713246BF47300EFC685 /* ComposeViewController.swift */,
+				20163340246C0805005E2AA2 /* UIViewcontroller+Alert.swift */,
 			);
 			path = VincentMemoApp;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20E49139246AC2F900B08EF9 /* VincentMemoApp.xcdatamodeld in Sources */,
+				20163341246C0805005E2AA2 /* UIViewcontroller+Alert.swift in Sources */,
 				20E4912F246AC2F900B08EF9 /* AppDelegate.swift in Sources */,
 				20832866246AF33600E39828 /* MemoListTableViewController.swift in Sources */,
 				20BA9714246BF47300EFC685 /* ComposeViewController.swift in Sources */,

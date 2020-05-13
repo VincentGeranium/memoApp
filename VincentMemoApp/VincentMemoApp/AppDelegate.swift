@@ -11,6 +11,8 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    /// iOS 12 버전 이하의 호환을 위해 window 추가
+    var window: UIWindow?
 
 
 
