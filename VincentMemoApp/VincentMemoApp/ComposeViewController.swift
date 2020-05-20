@@ -10,6 +10,15 @@ import UIKit
 
 class ComposeViewController: UIViewController {
     
+    /// 보기화면에서 편집 버튼을 탭하면 메모가 editTarget 속성에 전달됨
+    /// 이 속성에 메모가 저장되어 있다면 편집모드로 동작해야한다.
+    /// 그리고 목록화면에서 + 버튼을 탭하면 전달되는 메모가 없다.
+    /// 다시말해 editTarget 속성이 nil이고 이때는 새 메모쓰기 동작해야함.
+    ///
+    /// 보기화면에서 전달한 메모는 아래의 속성에 저장
+    var editTarget: Memo?
+    
+    
     @IBAction func close(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -31,12 +40,21 @@ class ComposeViewController: UIViewController {
         /// 새로운 인스턴스 생성 후 배열에 저장
 //        let newMemo = Memo(content: memo)
 //        Memo.dummyMemoList.append(newMemo)
-        DataManager.shared.addNewMemo(memo)
-        /// 화면을 닫기 전 노티피케이션을 전달
-        /// 라디오 방송국에서 라디오 방송을 브로드캐스팅 하는 것과 같은 코드라고 생각하면 된다.
-        /// 노티피케이션은 특정 객체에 바로 전달 되지 않는다, 앱을 전달하는 모든 객체에 전달된다.(브로드캐스팅) -> 엄밀히 따지면 잘못된 설명, 처음 노티에 대해 공부시 이렇게 이해해도 괜찮다
-        /// 여기서 전달한 노티피케이션을 처리해야 함 -> 옵저버를 등록하고 필요한 코드를 구현하는 방식으로 처리 함.(라디오 주파수를 맞추는 것에 비유할 수 있다.) -> MemoListVC viewdidLoad 참고
-        NotificationCenter.default.post(name: ComposeViewController.newMemoDidInsert, object: nil)
+        
+        if let target = editTarget {
+            target.content = memo
+            DataManager.shared.saveContext()
+            NotificationCenter.default.post(name: ComposeViewController.memoDidChange, object: nil)
+        } else {
+            DataManager.shared.addNewMemo(memo)
+            /// 화면을 닫기 전 노티피케이션을 전달
+            /// 라디오 방송국에서 라디오 방송을 브로드캐스팅 하는 것과 같은 코드라고 생각하면 된다.
+            /// 노티피케이션은 특정 객체에 바로 전달 되지 않는다, 앱을 전달하는 모든 객체에 전달된다.(브로드캐스팅) -> 엄밀히 따지면 잘못된 설명, 처음 노티에 대해 공부시 이렇게 이해해도 괜찮다
+            /// 여기서 전달한 노티피케이션을 처리해야 함 -> 옵저버를 등록하고 필요한 코드를 구현하는 방식으로 처리 함.(라디오 주파수를 맞추는 것에 비유할 수 있다.) -> MemoListVC viewdidLoad 참고
+            NotificationCenter.default.post(name: ComposeViewController.newMemoDidInsert, object: nil)
+        }
+        
+        
         
         /// new Memo 화면 닫음
         dismiss(animated: true, completion: nil)
@@ -48,7 +66,14 @@ class ComposeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // 편집 모드이냐 아니면 새 메모 쓰기 이냐에 따라 title 동적으로 바뀌어야 하므로 code로 짜야함
+        if let memo = editTarget {
+            navigationItem.title = "메모 편집"
+            memoTextView.text = memo.content
+        } else {
+            navigationItem.title = "새 메모"
+            memoTextView.text = ""
+        }
     }
     
 
@@ -72,4 +97,5 @@ extension ComposeViewController {
     
     /// 노티피케이션 이름 선언
     static let newMemoDidInsert = Notification.Name("newMemoDidInsert")
+    static let memoDidChange = Notification.Name("memoDidChange")
 }

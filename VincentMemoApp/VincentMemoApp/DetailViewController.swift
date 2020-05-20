@@ -7,8 +7,11 @@
 //
 
 import UIKit
-
+// 보기화면
 class DetailViewController: UIViewController {
+    
+    
+    @IBOutlet weak var memoTableView: UITableView!
     
     /// 이전 화면에서 전달할 데이터를 저장
     /// VC가 초기화 되는 시점에는 데이터가 없으므로 옵셔널로 설정
@@ -24,11 +27,30 @@ class DetailViewController: UIViewController {
         f.locale = Locale(identifier: "Ko_kr")
         return f
     }()
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination.children.first as? ComposeViewController {
+            vc.editTarget = memo
+        }
+    }
+    
+    /// 노티피케이션 토큰 저장
+    var token: NSObjectProtocol?
+    
+    /// 옵저버 해제 코드 구현
+    deinit {
+        if let token = token {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        /// 옵저버 추가 코드 구현
+        token = NotificationCenter.default.addObserver(forName: ComposeViewController.memoDidChange, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
+            self?.memoTableView.reloadData()
+        })
     }
     
 

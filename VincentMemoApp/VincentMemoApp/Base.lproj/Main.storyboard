@@ -73,7 +73,11 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1jf-0m-vgV">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
-                                    <barButtonItem title="Item" id="wKM-Kp-JUe"/>
+                                    <barButtonItem systemItem="compose" id="wKM-Kp-JUe">
+                                        <connections>
+                                            <segue destination="HlQ-xX-igp" kind="presentation" id="VmB-u4-d1V"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Yhl-uq-bM0">
@@ -133,6 +137,9 @@
                         <viewLayoutGuide key="safeArea" id="5WS-MW-1Cj"/>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="cJk-dP-WXF"/>
+                    <connections>
+                        <outlet property="memoTableView" destination="Yhl-uq-bM0" id="FAE-WZ-6FQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewV-EZ-sW5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -219,4 +226,7 @@
             <point key="canvasLocation" x="1631.8840579710147" y="-538.39285714285711"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="VmB-u4-d1V"/>
+    </inferredMetricsTieBreakers>
 </document>
