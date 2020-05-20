@@ -11,6 +11,7 @@
 		20832866246AF33600E39828 /* MemoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20832865246AF33600E39828 /* MemoListTableViewController.swift */; };
 		208DE676246AD75C00CB72A9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208DE675246AD75C00CB72A9 /* Model.swift */; };
 		20BA9714246BF47300EFC685 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BA9713246BF47300EFC685 /* ComposeViewController.swift */; };
+		20C4BA902474F439003C95F1 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BA8F2474F439003C95F1 /* DataManager.swift */; };
 		20CB8CBC246C335600AE2873 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CB8CBB246C335600AE2873 /* DetailViewController.swift */; };
 		20E4912F246AC2F900B08EF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4912E246AC2F900B08EF9 /* AppDelegate.swift */; };
 		20E49131246AC2F900B08EF9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E49130246AC2F900B08EF9 /* SceneDelegate.swift */; };
@@ -25,6 +26,7 @@
 		20832865246AF33600E39828 /* MemoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListTableViewController.swift; sourceTree = "<group>"; };
 		208DE675246AD75C00CB72A9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		20BA9713246BF47300EFC685 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
+		20C4BA8F2474F439003C95F1 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		20CB8CBB246C335600AE2873 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		20E4912B246AC2F900B08EF9 /* VincentMemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VincentMemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20E4912E246AC2F900B08EF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +57,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		20C4BA8E2474F424003C95F1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				20C4BA8F2474F439003C95F1 /* DataManager.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		20E49122246AC2F900B08EF9 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +84,7 @@
 		20E4912D246AC2F900B08EF9 /* VincentMemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				20C4BA8E2474F424003C95F1 /* Data */,
 				208DE674246AD72900CB72A9 /* Model */,
 				20E4912E246AC2F900B08EF9 /* AppDelegate.swift */,
 				20E49130246AC2F900B08EF9 /* SceneDelegate.swift */,
@@ -168,6 +179,7 @@
 				20BA9714246BF47300EFC685 /* ComposeViewController.swift in Sources */,
 				20E49131246AC2F900B08EF9 /* SceneDelegate.swift in Sources */,
 				208DE676246AD75C00CB72A9 /* Model.swift in Sources */,
+				20C4BA902474F439003C95F1 /* DataManager.swift in Sources */,
 				20CB8CBC246C335600AE2873 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -29,8 +29,8 @@ class ComposeViewController: UIViewController {
         }
         /// 텍스트가 정상적으로 입력되었을 때.
         /// 새로운 인스턴스 생성 후 배열에 저장
-        let newMemo = Memo(content: memo)
-        Memo.dummyMemoList.append(newMemo)
+//        let newMemo = Memo(content: memo)
+//        Memo.dummyMemoList.append(newMemo)
         
         /// 화면을 닫기 전 노티피케이션을 전달
         /// 라디오 방송국에서 라디오 방송을 브로드캐스팅 하는 것과 같은 코드라고 생각하면 된다.

@@ -24,6 +24,11 @@ class MemoListTableViewController: UITableViewController {
     /// notificationCenter로 화면 전환과 동시에 테이블 뷰 목록 업데이트 구현 -> ComposeVC extension 참조
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        /// 이곳에서 fetchMemo 메소드를 호출하고 바로 이어서 테이블 뷰에서 reloadData 메소드 호출
+        /// DataManager.shared.fetchMemo() 에서 fetchMemo 메소드가 호출되면 배열이 데이터로 채워진다.
+        DataManager.shared.fetchMemo()
+        /// 이어서 tableView.reloadData() 메소드가 호출되면 배열에 저장된 데이터를 기반으로 테이블 뷰가 업데이트 된다.
+        tableView.reloadData()
         /// 테이블 뷰의 목록 업데이트 메소드
 //        tableView.reloadData()
     }
@@ -52,7 +57,7 @@ class MemoListTableViewController: UITableViewController {
             /// 메모(데이터)를 전달하기 위해서는 destination을 실제 타입으로 타입캐스팅 해야 한다.
             if let vc = segue.destination as? DetailViewController {
                 /// 배열에서 선택한 데이터를 가져와서 memo 속성에 저장한다.
-                vc.memo = Memo.dummyMemoList[indexPath.row]
+                vc.memo = DataManager.shared.memoList[indexPath.row]
             }
         }
     }
@@ -76,7 +81,7 @@ class MemoListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return Memo.dummyMemoList.count
+        return DataManager.shared.memoList.count
     }
 
     
@@ -84,9 +89,11 @@ class MemoListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         // Configure the cell...
-        let target = Memo.dummyMemoList[indexPath.row]
+        let target = DataManager.shared.memoList[indexPath.row]
         cell.textLabel?.text = target.content
-        cell.detailTextLabel?.text = formatter.string(from: target.insertDate)
+        // formatter.string(from: target.insertDate) 이 error이 나는 이유는 string(from:) 메소드는 옵셔널 값을 받을 수 없는데 insertDate가 옵셔널 값이다.
+        // formatter.string(from: target.insertDate) 를 옵셔널 값을 받을 수 있는 formatter.string(for: target.insertDate)로 바꾼다.
+        cell.detailTextLabel?.text = formatter.string(for: target.insertDate)
 
         return cell
     }
