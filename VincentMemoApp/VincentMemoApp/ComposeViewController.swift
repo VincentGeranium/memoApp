@@ -31,7 +31,7 @@ class ComposeViewController: UIViewController {
         /// 새로운 인스턴스 생성 후 배열에 저장
 //        let newMemo = Memo(content: memo)
 //        Memo.dummyMemoList.append(newMemo)
-        
+        DataManager.shared.addNewMemo(memo)
         /// 화면을 닫기 전 노티피케이션을 전달
         /// 라디오 방송국에서 라디오 방송을 브로드캐스팅 하는 것과 같은 코드라고 생각하면 된다.
         /// 노티피케이션은 특정 객체에 바로 전달 되지 않는다, 앱을 전달하는 모든 객체에 전달된다.(브로드캐스팅) -> 엄밀히 따지면 잘못된 설명, 처음 노티에 대해 공부시 이렇게 이해해도 괜찮다

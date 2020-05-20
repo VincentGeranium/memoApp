@@ -48,6 +48,30 @@ class DataManager {
             print(error)
         }
         
+    }
+    
+    func addNewMemo(_ memo: String?) {
+        /// 새로운 memo instance 생성
+        /// Memo 클래스는 core data에서 만든 클래스, 내가 만들 클래스가 아님.
+        /// 그래서 생성자를 만들 때 context를 전달해야함.
+        /// 이렇게 하면 데이터베이스에 메모를 저장하는데 필요한 비어있는 instance 생성
+        let newMemo = Memo(context: mainContext)
+        newMemo.content = memo
+        newMemo.insertDate = Date()
+        
+        /// 배열에 추가하는 메서드이지만 append는 배열에 마지막에 데이터가 추가되고
+        /// insert는 원하는 곳에 넣어줄 수 있다.
+        /// fetchMemo 메소드를 다시 호출한 것과 동일한 결과를 얻을 수 있다.
+        /// 불필요한 데이터 베이스 작업이 줄어들기 때문에 효율적이다.
+        memoList.insert(newMemo, at: 0)
+        
+        
+        
+        /// 위와 같이 인스턴스를 생성하고 데이터를 넣어줬다고 실제로 데이터베이스에 저장되는 것이 아니다
+        /// 데이터 베이스에 데이터를 저장하고 싶다면 context를 저장해야한다.
+        /// context를 저장하는 메소드는 saveContext ()
+        
+        saveContext()
         
     }
     
