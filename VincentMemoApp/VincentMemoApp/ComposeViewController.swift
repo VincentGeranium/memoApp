@@ -18,6 +18,10 @@ class ComposeViewController: UIViewController {
     /// 보기화면에서 전달한 메모는 아래의 속성에 저장
     var editTarget: Memo?
     
+    // 편집 이전의 메모 저장
+    var originalMemoContents: String?
+    
+    
     
     @IBAction func close(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -70,10 +74,26 @@ class ComposeViewController: UIViewController {
         if let memo = editTarget {
             navigationItem.title = "메모 편집"
             memoTextView.text = memo.content
+            originalMemoContents = memo.content
         } else {
             navigationItem.title = "새 메모"
             memoTextView.text = ""
         }
+        
+        memoTextView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // presentationController 델리게이트 설정
+        // 편집 화면이 표시되기 직전에 델리게이트로 설정
+        navigationController?.presentationController?.delegate = self
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // 편집 화면이 사라지기 직전에 델리게이트가 해제됨.
+        navigationController?.presentationController?.delegate = nil
     }
     
 
@@ -87,6 +107,52 @@ class ComposeViewController: UIViewController {
     }
     */
 
+}
+
+extension ComposeViewController: UITextViewDelegate {
+    // 텍스트 뷰에서 텍스트를 편집 할 때마다 반복해서 호출되는 메서드
+    func textViewDidChange(_ textView: UITextView) {
+        
+        // 오리지널 메모와 편집된 메모를 상수에 저장
+        if let original = originalMemoContents, let edited = textView.text {
+            // 모달 방식으로 동작해야 하는지 결정하는 플래그로 사용된다
+            // true 저장시 시트가 모달 방식으로 동작, 풀다운으로 시트가 닫히기 전 델리게이트 메소드를 호출해준다.
+            // 이 속성은 iOS 13에서 새로 추가되었기 때문에 iOS 13에서만 실행되도록 available condition을 설정해 주어야 한다.
+            // 오리지널 메모와 편집된 메모가 다를 때 isModalInPresentation 속성에 true를 저장한다.
+            // 이렇게 하면 텍스트 뷰에서 메모를 할 때마다 원본과 다른지 비교 후 원본과 다르다면 메모가 편집된 것으로 판단한다.
+            if #available(iOS 13.0, *) {
+                isModalInPresentation = original != edited
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    }
+}
+
+extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
+    // isModalInPresentation = original != edited 위 코드에서 true가 저장된 상태에서 시트를 풀 다운 시키면
+    // 시트가 사라지지 않고 아래의 메소드가 호출된다.
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        let alert = UIAlertController(title: "알림", message: "편집된 내용을 저장하시겠습니까?", preferredStyle: .alert)
+        
+        // UIAlertAction에서는 마지막 parameter가 가장 중요하다
+        // parameter로 closure를 전달하는데 경고창에서 "확인"버튼은 누르면 이 closure가 실행된다
+        // 이 closure 내부에서 저장 기능을 구현해도 되지만 메모를 저장하는 기능은 save 메소드에 이미 구현되어 있으므로 그냥 가져다 사용하면된다.
+        let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] (action) in
+            self?.save(action)
+        }
+        // okAction을 alertController에 추가
+        alert.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { [weak self] (action) in
+            self?.close(action)
+        }
+        // cancelAction alertController에 추가
+        alert.addAction(cancelAction)
+        
+        // present 메소드로 경고창을 표시
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 
