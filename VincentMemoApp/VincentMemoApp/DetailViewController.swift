@@ -28,6 +28,36 @@ class DetailViewController: UIViewController {
         return f
     }()
     
+    
+    @IBAction func deleteMemo(_ sender: Any) {
+        // 메모를 바로 삭제해도 되지만 유저에게 물어보는게 좋음
+        // 경고창을 위한 UIAlertController
+        let alert = UIAlertController(title: "삭제 확인", message: "메모를 삭제 하시겠습니까?", preferredStyle: .alert)
+        
+        // AlertAction을 생성시 두 번째 파라미터로 style를 전달하는데 .destructive 스타일을 전달하면 텍스트가 빨간색으로 표시된다.
+        // 세 번째 파라미터는 버튼은 눌렀을 때 실행할 코드를 전달한다.
+        //
+        let okAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] (action) in
+            /// DataManager에 구현한 deleteMemo 메소드 호출
+            /// 그리고 현재 화면에 표시되어 있는 메모를 파라미터로 전달한다.
+            DataManager.shared.deleteMemo(self?.memo)
+            
+            /// okAction을 눌렀을 경우 메모를 삭제한 것이니 화면이 그대로 있으면 안된다. 메모를 삭제한 후 이전 화면으로 돌아 가야 한다.
+            /// 지금은 목록화면 다음에 보기화면이 표시되어 있는 상태이다. 화면을 닫고 이전 화면으로 가려면 화면은 pop해야 한다.
+            /// 지금은 네비게이션 컨트롤러가 화면 전환을 담당하므로 네비게이션 컨트롤러에 접근 후 현재 화면은 pop 해야한다            
+            self?.navigationController?.popViewController(animated: true)
+            
+        }
+        alert.addAction(okAction)
+        
+        // 어떤 버튼을 누르던지 경고창이 사라지므로 경고창을 닫는 코드는 구현 할 필요는 없다. 그래서 cancelAction의 handler에 nil을 전달함.
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        // 경고창을 화면에 표시
+        present(alert, animated: true, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination.children.first as? ComposeViewController {
             vc.editTarget = memo

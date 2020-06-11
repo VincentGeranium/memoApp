@@ -24,6 +24,8 @@ class DataManager {
     /// 메모를 저장할 배열 선언과 동시에 빈배열로 초기화
     var memoList = [Memo]()
     
+    // MARK: - fetchMemo
+    
     func fetchMemo() {
         /// 데이터를 데이터베이스에서 읽어오는 다양한 용어가 있다. iOS에서는 이것을 fetch라고 한다.
         /// 데이터를 데이터베이스에서 읽어 올 때는 먼저, fetchRequest를 만들어야 한다.
@@ -49,6 +51,7 @@ class DataManager {
         }
         
     }
+    // MARK: - addNewMemo
     
     func addNewMemo(_ memo: String?) {
         /// 새로운 memo instance 생성
@@ -73,6 +76,17 @@ class DataManager {
         
         saveContext()
         
+    }
+    
+    // MARK: - deleteMemo 삭제 메소드 구현
+    
+    /// 파라미터로 옵셔널을 받는 이유는 실제로 메모가 전달 되었을 때만 삭제
+    func deleteMemo(_ memo: Memo?) {
+        if let memo = memo {
+            /// 컨텍스트가 제공하는 delete 메소드를 사용후 saveContext로 저장하면 실제로 메모가 삭제됨
+            mainContext.delete(memo)
+            saveContext()
+        }
     }
     
     

@@ -98,26 +98,63 @@ class MemoListTableViewController: UITableViewController {
         return cell
     }
     
-
-    /*
+    // MARK: - 테이블 뷰에서 삭제를 구현하려면 아래의 3가지 메소드를 모두 구현해야 한다.
+    // 테이블 뷰에서 삭제를 구현하려면 아래의 3가지 메소드를 모두 구현해야 한다.
+    // 1. tableView(_:canEditRowAt :)
+    // 2. tableView(_:editingStyleForRowAt:)
+    // 3. tableView(_:commit:forRowAt:)
+    
+    // 1. tableView(_:canEditRowAt :)
     // Override to support conditional editing of the table view.
+    // 아래 메소드의 return 값을 true로 전달시 편집 기능이 활성화 된다.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
         // Return false if you do not want the specified item to be editable.
+        // 편집 기능을 활성화 시킨 후에는 편집 스타일을 지정해줘야 한다.
         return true
     }
-    */
-
-    /*
+    
+    // 2. tableView(_:editingStyleForRowAt:)
+    // 이 메소드에서 원하는 편집 스타일을 리턴 해줘야 한다.
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        
+        // 삭제 스타일
+        return .delete
+    }
+    
+    
+    // 3. tableView(_:commit:forRowAt:)
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        // 이 메소드의 바디를 보면 edit style를 처리하는 코드가 작성되어 있다.
+        // 아래는 delete 스타일 처리
         if editingStyle == .delete {
-            // Delete the row from the data source
+            
+            // 메모를 삭제하는 코드
+            // indexPath를 사용하여 삭제할 메모를 상수에 저장
+            let target = DataManager.shared.memoList[indexPath.row]
+            
+            // deleteMemo 호출 후 파라미터로 삭제할 메모를 저장한 상수 전달
+            // 아래의 deleteMemo 메소드를 호출하면 메모가 삭제된다. 데이터베이스에서 메모가 삭제되는 것이다.
+            DataManager.shared.deleteMemo(target)
+            
+            // 메모 리스트 배열의 데이터 삭제
+            DataManager.shared.memoList.remove(at: indexPath.row)
+            
+            // 아래의 코드는 테이블 뷰에서 셀을 삭제하는 코드이다.
+            // 현재 테이블 뷰에 표시하는 데이터는 메모리스트 배열에 저장되어 있다.
+            // 아래의 코드에는 여전히 삭제된 메모가 저장되어 있다.
+            // 그래서 아래의 메소드를 이용해 메소드를 삭제한 후에 테이블 뷰에 있는 셀 숫자와 배열에 저장된 데이터 숫자가 달라진다. 이 숫자는 항상 일치해야 한다.
+            // 일치하지 않는다면 크래쉬가 발생한다.
+            // 그래서 데이터베이서에서 삭제 후 배열에서도 삭제해야 한다. 그래서 위의 DataManager.shared.memoList.remove(at: indexPath.row) 로 배열의 데이터를 삭제해준다
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
