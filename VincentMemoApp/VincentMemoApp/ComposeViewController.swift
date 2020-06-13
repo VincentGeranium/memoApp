@@ -64,6 +64,23 @@ class ComposeViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    // 뷰 컨트롤러에서 키보드 노티피케이션을 처리해야 하니 토큰을 저장할 속성을 선언.
+    // 아래 추가한 willShowToken, willHideToken는 옵저버를 해제 할 때 선언한다.
+    var willShowToken: NSObjectProtocol?
+    var willHideToken: NSObjectProtocol?
+    
+    // 소멸자를 구현하고 옵저버를 해제하는 코드 구현.
+    // 아래의 코드는 화면이 제거되는 시점에 옵저버가 해제되는 코드.
+    deinit {
+        if let token = willHideToken {
+            NotificationCenter.default.removeObserver(token)
+        }
+        
+        if let token = willShowToken {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
+    
     
     
 
@@ -81,10 +98,64 @@ class ComposeViewController: UIViewController {
         }
         
         memoTextView.delegate = self
+        
+        // 옵저버를 등록하는 코드 구현. 보통 viewDidLoad에 구현한다.
+        
+        // 먼저 키보드가 표시되기 전에 전달되는 노티피케이션 부터 구현.
+        // 이때 전달되는 노티피케이션 이름은 UIResponder.keyboardWillShowNotification 이다.
+        // 클로저에 키보드 높이 만큼 여백이 추가되는 코드 구현.
+        // 키보드 높이는 실행 환경에 따라 조금씩 달라진다. 그래서 고정된 값을 입력하면 안되고, 노티피케이션을 통해 전달된 값을 활용하여 높이를 구해야한다.
+        willShowToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main) { [weak self] (noti) in
+            guard let strongSelf = self else { return }
+            
+            if let frame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                // 아래와 같이 구현하면 hight 속성에 키보드 높이가 저장된다.
+                let hight = frame.cgRectValue.height
+                
+                // 텍스트 뷰의 여백은 contentInset 속성으로 저장한다.
+                // 우선 현재 설정되어 있는 값을 변수에 저장.
+                var inset = strongSelf.memoTextView.contentInset
+                
+                // 바텀 속성을 키보드 높이로 바꾼다.
+                inset.bottom = hight
+                
+                // 변경한 Inset을 contentInset 속성에 저장한다.
+                // 이렇게 하면 바텀을 제외한 나머지 여백 영역은 그대로 유지된다.
+                strongSelf.memoTextView.contentInset = inset
+                
+                // 텍스트 뷰 오른쪽에 표시되는 스크롤 바에도 같은 크기의 여백을 추가해야 한다.
+                inset = strongSelf.memoTextView.scrollIndicatorInsets
+                inset.bottom = hight
+                strongSelf.memoTextView.scrollIndicatorInsets = inset
+            }
+        }
+        
+        // 새로운 옵저버를 구현하는 코드는 addObserver 메소드를 호출하는 코드 다음에 추가해야 한다.
+        // 키보드가 사라질 때 여백을 제거하는 코드 구현.
+        willHideToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
+            guard let strongSelf = self else { return }
+            
+            // 여백을 제거하는 코드를 구현하는 것 이므로 따로 키보드 높이를 구할 필요가 없다.
+            // 현재 인셋을 변수에 저장.
+            var inset = strongSelf.memoTextView.contentInset
+            // 바텀을 0으로 바꿔주면 끝.
+            inset.bottom = 0
+            strongSelf.memoTextView.contentInset = inset
+            
+            // 또한 스크롤 인디케이터의 인셋도 바꿔줘야 한다.
+            inset = strongSelf.memoTextView.scrollIndicatorInsets
+            inset.bottom = 0
+            strongSelf.memoTextView.scrollIndicatorInsets = inset
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // iOS에서는 입력 포커스를 가진 뷰를 FirstResponder 라고 부른다.
+        // 텍스트 뷰를 FirstResponder로 만들어주면, 텍스트 뷰가 선택되고 키보드가 자동으로 표시된다.
+        memoTextView.becomeFirstResponder()
+        
         // presentationController 델리게이트 설정
         // 편집 화면이 표시되기 직전에 델리게이트로 설정
         navigationController?.presentationController?.delegate = self
@@ -92,6 +163,10 @@ class ComposeViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        // 화면을 닫기 전에는 FirstResponder를 해제해주면 좋다.
+        // resignFirstResponder를 호출해주면 입력 포커스가 사라지고 키보드가 사라진다.ㄴ
+        memoTextView.resignFirstResponder()
+        
         // 편집 화면이 사라지기 직전에 델리게이트가 해제됨.
         navigationController?.presentationController?.delegate = nil
     }
