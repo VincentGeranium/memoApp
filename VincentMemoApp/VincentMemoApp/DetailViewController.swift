@@ -28,6 +28,21 @@ class DetailViewController: UIViewController {
         return f
     }()
     
+    @IBAction func share(_ sender: Any) {
+        // iOS 가 기본적으로 제공하는 공유기능은 UIActivityViewController로 구현 가능
+        
+        // 여기서는 메모를 공유하는 기능을 구현 할 것이므로 상수에 메모를 바인딩한다.
+        guard let memo = memo?.content else { return }
+        
+        // UIActivityViewController 생성
+        // 첫 번째 파라미터로 메모를 전달
+        let vc = UIActivityViewController(activityItems: [memo], applicationActivities: nil)
+        
+        // present 메소드를 활용하여 UIActivityViewController를 화면에 표시
+        present(vc, animated: true, completion: nil)
+        
+        
+    }
     
     @IBAction func deleteMemo(_ sender: Any) {
         // 메모를 바로 삭제해도 되지만 유저에게 물어보는게 좋음
